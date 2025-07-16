@@ -1,0 +1,1928 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psikologi Bicara</title>
+    <style>
+:root { --primary: #6a0dad; --primary-light: #9b4dca; --primary-dark: #4b0082; --secondary: #f3e5f5; --accent: #d500f9; --text-dark: #212121; --text-light: #f5f5f5; --gray-light: #e0e0e0; --shadow: 0 4px 6px rgba(50, 0, 100, 0.1); --transition: all 0.3s ease-in-out; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Poppins', sans-serif; color: var(--text-dark); background-color: #fcfaff; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+.container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* Header Styles */
+header { background-color: white; box-shadow: var(--shadow); position: sticky; top: 0; z-index: 1000; width: 100%; }
+.header-container { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; }
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo img { width: 40px; height: 40px; }
+.logo h1 { font-size: 1.5rem; color: var(--primary); font-weight: 700; }
+.nav-links { display: flex; align-items: center; gap: 25px; }
+.nav-item { position: relative; font-weight: 500; cursor: pointer; }
+.nav-item::after { content: ''; position: absolute; width: 0; height: 2px; background-color: var(--primary); bottom: -5px; left: 0; transition: var(--transition); }
+.nav-item:hover::after, .nav-item.active::after { width: 100%; }
+.nav-item.active { color: var(--primary); }
+.search-box { display: flex; align-items: center; background-color: var(--secondary); border-radius: 20px; padding: 5px 10px; margin-left: 20px; }
+.search-box input { border: none; background-color: transparent; padding: 5px; outline: none; width: 150px; }
+.search-box button { background: none; border: none; cursor: pointer; color: var(--primary); }
+.burger { display: none; cursor: pointer; width: 25px; height: 20px; position: relative; margin-left: 20px; }
+.burger span { position: absolute; width: 100%; height: 2px; background-color: var(--primary); transition: var(--transition); }
+.burger span:nth-child(1) { top: 0; }
+.burger span:nth-child(2) { top: 9px; }
+.burger span:nth-child(3) { top: 18px; }
+.burger.active span:nth-child(1) { transform: rotate(45deg); top: 9px; }
+.burger.active span:nth-child(2) { opacity: 0; }
+.burger.active span:nth-child(3) { transform: rotate(-45deg); top: 9px; }
+
+/* Main Content Styles */
+main { min-height: calc(100vh - 140px); }
+section { padding: 60px 0; }
+.hero { background: linear-gradient(135deg, var(--primary-light), var(--primary-dark)); color: var(--text-light); text-align: center; padding: 80px 0; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; width: 100%; height: 100%; background: url('/api/placeholder/800/600') center/cover no-repeat; opacity: 0.1; top: 0; left: 0; }
+.hero h2 { font-size: 2.8rem; margin-bottom: 20px; opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s forwards 0.2s; }
+.hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 30px; opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s forwards 0.4s; }
+.btn { display: inline-block; background-color: var(--accent); color: white; padding: 12px 25px; border-radius: 25px; font-weight: 600; transition: var(--transition); box-shadow: var(--shadow); border: none; cursor: pointer; opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s forwards 0.6s; }
+.btn:hover { background-color: var(--primary-dark); transform: translateY(-3px); box-shadow: 0 6px 12px rgba(50, 0, 100, 0.15); }
+
+.section-title { text-align: center; margin-bottom: 50px; position: relative; }
+.section-title h2 { font-size: 2.2rem; color: var(--primary); margin-bottom: 10px; }
+.section-title::after { content: ''; position: absolute; width: 80px; height: 3px; background-color: var(--accent); bottom: -15px; left: 50%; transform: translateX(-50%); }
+
+.row { display: flex; flex-wrap: wrap; margin: 0 -15px; }
+.about-text { padding: 0 15px; line-height: 1.6; }
+
+.cards-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
+.card { background-color: white; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); transition: var(--transition); transform: translateY(30px); opacity: 0; height: 100%; }
+.card.show { transform: translateY(0); opacity: 1; }
+.card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(50, 0, 100, 0.12); }
+.card-img { height: 200px; overflow: hidden; }
+.card-img img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
+.card:hover .card-img img { transform: scale(1.05); }
+.card-content { padding: 20px; display: flex; flex-direction: column; height: calc(100% - 200px); }
+.card-content h3 { color: var(--primary); margin-bottom: 10px; font-size: 1.3rem; }
+.card-content p { margin-bottom: 15px; color: #666; line-height: 1.5; flex-grow: 1; }
+.card-content .btn { margin-top: auto; align-self: flex-start; }
+
+/* Book and Article Cards */
+.book-card { background-color: white; border-radius: 10px; box-shadow: var(--shadow); padding: 25px; transition: var(--transition); margin-bottom: 20px; opacity: 0; transform: translateY(20px); height: 100%; position: relative; overflow: hidden; }
+.book-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-position: center; background-size: cover; opacity: 0.1; z-index: 1; transition: transform 0.3s ease; }
+.book-card:hover::before { transform: scale(1.05); }
+.book-card.show { opacity: 1; transform: translateY(0); }
+.book-card h3, .book-card .author, .book-card .description, .book-card .book-actions { position: relative; z-index: 2; }
+.book-card h3 { color: var(--primary); margin-bottom: 10px; }
+.book-card .author { color: #666; font-style: italic; margin-bottom: 15px; }
+.book-card p { margin-bottom: 15px; line-height: 1.6; }
+.book-card .description { position: relative; }
+.book-card .truncated { max-height: 80px; overflow: hidden; }
+.book-card .full-text { max-height: 1000px; transition: max-height 0.5s ease; }
+.book-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+.read-more, .download-btn { background-color: var(--primary-light); color: white; padding: 8px 15px; border-radius: 20px; display: inline-block; font-size: 0.9rem; transition: var(--transition); cursor: pointer; }
+.read-more:hover, .download-btn:hover { background-color: var(--primary); }
+.book-slider { overflow-x: auto; white-space: nowrap; padding: 20px 0; margin: 0 -20px; padding: 0 20px; scrollbar-width: thin; scrollbar-color: var(--primary-light) var(--gray-light); }
+.book-slider::-webkit-scrollbar { height: 6px; }
+.book-slider::-webkit-scrollbar-track { background: var(--gray-light); }
+.book-slider::-webkit-scrollbar-thumb { background-color: var(--primary-light); border-radius: 20px; }
+.book-card-container { display: inline-block; width: 300px; margin-right: 20px; vertical-align: top; white-space: normal; }
+
+/* Form Styles */
+.form-group { margin-bottom: 20px; }
+label { display: block; margin-bottom: 5px; font-weight: 500; color: var(--primary); }
+input, select, textarea { width: 100%; padding: 12px; border: 1px solid var(--gray-light); border-radius: 5px; font-family: inherit; font-size: 1rem; transition: var(--transition); }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary-light); box-shadow: 0 0 0 2px rgba(155, 77, 202, 0.2); }
+textarea { min-height: 150px; resize: vertical; }
+
+/* Quiz Styles */
+.quiz-container { background-color: white; border-radius: 10px; box-shadow: var(--shadow); padding: 30px; }
+.quiz-container h3 { color: var(--primary); margin-bottom: 20px; }
+.quiz-question { margin-bottom: 25px; }
+.quiz-question p { margin-bottom: 10px; font-weight: 500; }
+.quiz-options label { display: block; margin-bottom: 10px; cursor: pointer; padding: 10px; border: 1px solid var(--gray-light); border-radius: 5px; transition: background-color 0.3s; }
+.quiz-options label:hover { background-color: var(--secondary); }
+.quiz-options input[type="radio"] { display: none; }
+.quiz-options input[type="radio"]:checked + label { background-color: var(--primary-light); color: white; border-color: var(--primary-light); }
+.quiz-result { text-align: center; }
+.quiz-result h3 { font-size: 2rem; margin-bottom: 10px; }
+.quiz-result p { font-size: 1.1rem; line-height: 1.6; }
+.quiz-actions { margin-top: 30px; text-align: center; }
+.quiz-actions button { margin: 0 10px; }
+
+/* Discussion Area */
+.discussion-area { background-color: white; border-radius: 10px; box-shadow: var(--shadow); padding: 25px; margin-bottom: 30px; }
+.topic-tabs { display: flex; border-bottom: 1px solid var(--gray-light); margin-bottom: 20px; overflow-x: auto; }
+.topic-tab { padding: 10px 20px; cursor: pointer; transition: var(--transition); border-bottom: 2px solid transparent; white-space: nowrap; }
+.topic-tab.active { border-color: var(--primary); color: var(--primary); }
+.topic-tab:hover { color: var(--primary); }
+.topic-list { margin-top: 30px; }
+.topic-item { padding: 15px; border-bottom: 1px solid var(--gray-light); transition: var(--transition); }
+.topic-item:hover { background-color: var(--secondary); }
+.topic-header { display: flex; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; }
+.topic-title { font-weight: 600; color: var(--primary); margin-bottom: 5px; }
+.topic-meta { color: #888; font-size: 0.9rem; }
+.topic-actions { display: flex; gap: 15px; margin-top: 10px; flex-wrap: wrap; }
+.topic-action { display: flex; align-items: center; gap: 5px; color: #888; font-size: 0.9rem; cursor: pointer; transition: var(--transition); }
+.topic-action:hover { color: var(--primary); }
+
+/* Chat Area - Updated with tabs */
+.chat-container { margin-top: 40px; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); background-color: white; }
+.chat-tabs { display: flex; border-bottom: 1px solid var(--gray-light); }
+.chat-tab { flex: 1; text-align: center; padding: 15px; font-weight: 600; cursor: pointer; transition: var(--transition); border-bottom: 2px solid transparent; }
+.chat-tab.active { border-color: var(--primary); color: var(--primary); }
+.chat-tab:hover { color: var(--primary); }
+.chat-body { display: none; }
+.chat-body.active { display: block; }
+.chat-messages { height: 300px; overflow-y: auto; padding: 15px; background-color: #f9f9f9; }
+.message { margin-bottom: 15px; display: flex; }
+.message-content { padding: 10px 15px; border-radius: 18px; max-width: 70%; }
+.message.incoming { justify-content: flex-start; }
+.message.outgoing { justify-content: flex-end; }
+.message.incoming .message-content { background-color: white; border: 1px solid var(--gray-light); }
+.message.outgoing .message-content { background-color: var(--primary-light); color: white; }
+.chat-input { display: flex; padding: 10px; background-color: white; border-top: 1px solid var(--gray-light); }
+.chat-input input { flex: 1; border: none; padding: 10px; outline: none; border-radius: 20px; background-color: #f0f0f0; }
+.chat-input button { background-color: var(--primary); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; margin-left: 10px; cursor: pointer; transition: var(--transition); display: flex; align-items: center; justify-content: center; }
+.chat-input button:hover { background-color: var(--primary-dark); }
+
+/* Psychologist Cards */
+.psychologist-card { background-color: white; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); transition: var(--transition); height: 100%; }
+.psychologist-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(50, 0, 100, 0.15); }
+.psychologist-img { height: 200px; overflow: hidden; }
+.psychologist-img img { width: 100%; height: 100%; object-fit: cover; }
+.psychologist-info { padding: 20px; }
+.psychologist-info h3 { color: var(--primary); margin-bottom: 5px; }
+.psychologist-info .specialization { color: #666; font-style: italic; margin-bottom: 10px; }
+.psychologist-info p { margin-bottom: 15px; line-height: 1.5; }
+.rating { display: flex; gap: 2px; margin-bottom: 10px; }
+.rating i { color: gold; }
+.select-psychologist { background-color: var(--primary); color: white; padding: 8px 15px; border-radius: 20px; display: inline-block; transition: var(--transition); cursor: pointer; text-align: center; }
+.select-psychologist:hover { background-color: var(--primary-dark); }
+
+/* Footer Styles */
+footer { background-color: var(--primary-dark); color: var(--text-light); padding: 40px 0 20px; }
+.footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-bottom: 30px; }
+.footer-column h3 { margin-bottom: 20px; position: relative; padding-bottom: 10px; }
+.footer-column h3::after { content: ''; position: absolute; width: 40px; height: 2px; background-color: var(--accent); bottom: 0; left: 0; }
+.footer-column ul li { margin-bottom: 10px; }
+.footer-column ul li a { transition: var(--transition); }
+.footer-column ul li a:hover { color: var(--accent); padding-left: 5px; }
+.social-icons { display: flex; gap: 15px; margin-top: 15px; flex-wrap: wrap; }
+.social-icons a { width: 35px; height: 35px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+.social-icons a:hover { background-color: var(--accent); transform: translateY(-3px); }
+.copyright { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.9rem; }
+
+/* Animations */
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideInRight { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes slideOutRight { from { transform: translateX(0); } to { transform: translateX(100%); } }
+
+/* Pages Styles */
+.page { display: none; }
+.page.active { display: block; animation: fadeIn 0.5s forwards; }
+
+/* Add improved mobile slider */
+.mobile-slider { display: none; overflow-x: auto; white-space: nowrap; padding: 20px 0; scrollbar-width: thin; scrollbar-color: var(--primary-light) var(--gray-light); }
+.mobile-slider::-webkit-scrollbar { height: 6px; }
+.mobile-slider::-webkit-scrollbar-track { background: var(--gray-light); }
+.mobile-slider::-webkit-scrollbar-thumb { background-color: var(--primary-light); border-radius: 20px; }
+.mobile-slider .card, 
+.mobile-slider .book-card-container, 
+.mobile-slider .psychologist-card,
+.mobile-slider .quiz-list-item { 
+    display: inline-block; 
+    width: 280px; 
+    margin-right: 15px; 
+    white-space: normal; 
+    vertical-align: top;
+}
+.mobile-slider .card:last-child,
+.mobile-slider .book-card-container:last-child,
+.mobile-slider .psychologist-card:last-child,
+.mobile-slider .quiz-list-item:last-child {
+    margin-right: 0;
+}
+
+/* Desktop grid */
+.desktop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+
+/* Show both desktop grid and mobile slider based on viewport */
+@media (min-width: 769px) {
+    .desktop-grid { display: grid; }
+    .mobile-slider { display: none; }
+    .btn { opacity: 1; transform: translateY(0); }
+    .hero h2, .hero p { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 992px) {
+    .desktop-grid { grid-template-columns: repeat(2, 1fr); }
+    .section-title h2 { font-size: 2rem; }
+}
+
+@media (max-width: 768px) {
+    .desktop-grid { display: none; }
+    .mobile-slider { display: block; }
+    
+    .nav-links { 
+        position: fixed; 
+        top: 70px; 
+        right: -300px; 
+        width: 280px; 
+        height: calc(100vh - 70px); 
+        background-color: white; 
+        flex-direction: column; 
+        padding: 30px; 
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1); 
+        transition: right 0.3s ease-in-out; 
+        align-items: flex-start; 
+        gap: 20px;
+        z-index: 999;
+    }
+    .nav-links.active { right: 0; }
+    
+    .burger { display: block; }
+    .search-box { margin-left: 0; margin-top: 20px; width: 100%; }
+    
+    .hero h2 { font-size: 2rem; opacity: 1; transform: translateY(0); }
+    .hero p { font-size: 1rem; opacity: 1; transform: translateY(0); }
+    .btn { opacity: 1; transform: translateY(0); }
+    
+    .section-title h2 { font-size: 1.8rem; }
+    
+    .card, .book-card, .psychologist-card { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+    
+    .animate-on-scroll { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+    
+    .topic-header {
+        flex-direction: column;
+    }
+    
+    .consultation-form form {
+        padding: 0 10px;
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    input, select, textarea {
+        padding: 10px;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 60px 0;
+    }
+    
+    .hero h2 {
+        font-size: 1.6rem;
+    }
+    
+    .section-title h2 {
+        font-size: 1.5rem;
+    }
+    
+    .section {
+        padding: 40px 0;
+    }
+    
+    .card-content, .book-card, .psychologist-info {
+        padding: 15px;
+    }
+    
+    .social-icons {
+        justify-content: center;
+    }
+}
+
+/* Initial states for scroll animations */
+.animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.animate-on-scroll.show { opacity: 1; transform: translateY(0); }
+
+/* NEW: Styles for expandable tips card */
+.tips-card .card-content {
+    transition: all 0.5s ease-in-out;
+}
+.tips-card .card-more-content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--gray-light);
+}
+.tips-card.expanded .card-more-content {
+    max-height: 500px; /* Cukup besar untuk menampung konten */
+    opacity: 1;
+}
+.tips-card .read-more-btn {
+    background-color: transparent;
+    color: var(--primary-dark);
+    font-weight: 600;
+    margin-top: 15px;
+    padding: 0;
+    align-self: flex-start;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.tips-card .read-more-btn:hover {
+    text-decoration: underline;
+    background-color: transparent;
+}
+.tips-card.expanded .read-more-btn::after {
+    content: " (Tutup)";
+}
+
+/* NEW: Styles for quiz sections */
+.quiz-section {
+    display: none;
+}
+.quiz-section.active {
+    display: block;
+}
+.quiz-list-item {
+    cursor: pointer;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    margin-bottom: 20px;
+}
+.quiz-list-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(50, 0, 100, 0.15);
+}
+.quiz-list-item h3 {
+    color: var(--primary);
+}
+.quiz-list-item p {
+    color: #666;
+}
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.quiz-header .btn {
+    margin: 0;
+    opacity: 1;
+    transform: none;
+    animation: none;
+}
+.quiz-timer {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+.quiz-form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}
+.quiz-form-actions .btn {
+    margin: 0;
+}
+.professional-tests-list {
+    margin-top: 40px;
+}
+.professional-tests-list h4 {
+    color: var(--primary);
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+.professional-tests-list ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+.professional-tests-list li {
+    margin-bottom: 10px;
+}
+.quiz-disclaimer {
+    font-style: italic;
+    color: #888;
+    margin-top: 15px;
+    line-height: 1.4;
+}
+.quiz-info-details {
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: var(--secondary);
+}
+.quiz-info-details p {
+    margin-bottom: 5px;
+}
+.quiz-info-details p:last-child {
+    margin-bottom: 0;
+}
+</style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="/api/placeholder/80/80" alt="Psikologi Bicara Logo">
+                <h1>Psikologi Bicara</h1>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li class="nav-item active" data-page="home">Home</li>
+                    <li class="nav-item" data-page="pustaka">Pustaka</li>
+                    <li class="nav-item" data-page="kesehatan-mental">Kesehatan Mental</li>
+                    <li class="nav-item" data-page="relasi-pengembangan">Relasi & Pengembangan</li>
+                    <li class="nav-item" data-page="diskusi">Mari Diskusi</li>
+                    <li class="nav-item" data-page="konsultasi">Konsultasi</li>
+                    <div class="search-box">
+                        <input type="text" placeholder="Cari...">
+                        <button>🔍</button>
+                    </div>
+                </ul>
+                <div class="burger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="page active" id="home">
+            <section class="hero">
+                <div class="container">
+                    <h2>Memahami Pikiran, Menumbuhkan Diri</h2>
+                    <p>Psikologi Bicara hadir untuk membantu Anda memahami diri sendiri dan hubungan dengan orang lain melalui pendekatan psikologi yang modern dan terpercaya.</p>
+                    <a href="#" class="btn" data-nav-to="pustaka">Mulai Perjalanan</a>
+                </div>
+            </section>
+
+            <section class="about">
+                <div class="container">
+                    <div class="section-title animate-on-scroll">
+                        <h2>Tentang Psikologi Bicara</h2>
+                        <p>Platform untuk menumbuhkan kesadaran psikologis dan kesehatan mental yang lebih baik</p>
+                    </div>
+                    <div class="row animate-on-scroll">
+                        <p class="about-text">Psikologi Bicara adalah platform komprehensif yang dirancang untuk membantu Anda mengeksplorasi dan memahami aspek psikologis kehidupan. Kami menyediakan sumber daya yang beragam, dari artikel dan buku hingga diskusi dan konsultasi langsung dengan psikolog profesional. Dengan pendekatan yang berpusat pada kebutuhan individu, kami berkomitmen untuk membuat pemahaman psikologi lebih mudah diakses oleh semua orang.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="featured">
+                <div class="container">
+                    <div class="section-title animate-on-scroll">
+                        <h2>Program Unggulan</h2>
+                    </div>
+                    
+                    <div class="desktop-grid">
+                        <div class="card animate-on-scroll">
+                            <div class="card-img">
+                                <img src="/api/placeholder/400/300" alt="Program Konseling">
+                            </div>
+                            <div class="card-content">
+                                <h3>Konseling Online</h3>
+                                <p>Konsultasikan masalah Anda dengan psikolog profesional melalui platform online yang aman dan nyaman.</p>
+                                <a href="#" class="btn" data-nav-to="konsultasi">Selengkapnya</a>
+                            </div>
+                        </div>
+                        <div class="card animate-on-scroll">
+                            <div class="card-img">
+                                <img src="/api/placeholder/400/300" alt="Workshop Psikologi">
+                            </div>
+                            <div class="card-content">
+                                <h3>Workshop & Seminar</h3>
+                                <p>Ikuti berbagai workshop interaktif untuk mengembangkan keterampilan psikologis dalam kehidupan sehari-hari.</p>
+                                <a href="#" class="btn" data-nav-to="external-workshop">Selengkapnya</a>
+                            </div>
+                        </div>
+                        <div class="card animate-on-scroll">
+                            <div class="card-img">
+                                <img src="/api/placeholder/400/300" alt="Tes Psikologi">
+                            </div>
+                            <div class="card-content">
+                                <h3>Tes & Asesmen</h3>
+                                <p>Kenali diri Anda lebih dalam melalui berbagai tes psikologi yang valid dan reliabel.</p>
+                                <a href="#" class="btn" data-nav-to="relasi-pengembangan">Selengkapnya</a>
+                            </div>
+                        </div>
+                        <div class="card animate-on-scroll">
+                            <div class="card-img">
+                                <img src="/api/placeholder/400/300" alt="Forum Diskusi">
+                            </div>
+                            <div class="card-content">
+                                <h3>Forum Diskusi</h3>
+                                <p>Berbagi pengalaman dan mendapatkan dukungan dari komunitas yang peduli tentang kesehatan mental.</p>
+                                <a href="#" class="btn" data-nav-to="diskusi">Selengkapnya</a>
+                            </div>
+                        </div>
+                        <div class="card animate-on-scroll">
+                            <div class="card-img">
+                                <img src="/api/placeholder/400/300" alt="Pustaka Digital">
+                            </div>
+                            <div class="card-content">
+                                <h3>Pustaka Digital</h3>
+                                <p>Akses berbagai sumber bacaan psikologi terkini yang disusun oleh para ahli di bidangnya.</p>
+                                <a href="#" class="btn" data-nav-to="pustaka">Selengkapnya</a>
+                            </div>
+                        </div>
+                        <div class="card animate-on-scroll">
+                            <div class="card-img">
+                                <img src="/api/placeholder/400/300" alt="Podcast">
+                            </div>
+                            <div class="card-content">
+                                <h3>Podcast & Video</h3>
+                                <p>Dengarkan diskusi mendalam tentang berbagai topik psikologi menarik bersama para pakar.</p>
+                                <a href="#" class="btn" data-nav-to="external-podcast">Selengkapnya</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mobile-slider">
+                        <div class="card">
+                            <div class="card-img">
+                                <img src="/api/placeholder/400/300" alt="Program Konseling">
+                            </div>
+                            <div class="card-content">
+                                <h3>Konseling Online</h3>
+                                <p>Konsultasikan masalah Anda dengan psikolog profesional melalui platform online yang aman dan nyaman.</p>
+                                <a href="#" class="btn" data-nav-to="konsultasi">Selengkapnya</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-img">
+                                <img src="/api/placeholder/400/300" alt="Workshop Psikologi">
+                            </div>
+                            <div class="card-content">
+                                <h3>Workshop & Seminar</h3>
+                                <p>Ikuti berbagai workshop interaktif untuk mengembangkan keterampilan psikologis dalam kehidupan sehari-hari.</p>
+                                <a href="#" class="btn" data-nav-to="external-workshop">Selengkapnya</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-img">
+                                <img src="/api/placeholder/400/300" alt="Tes Psikologi">
+                            </div>
+                            <div class="card-content">
+                                <h3>Tes & Asesmen</h3>
+                                <p>Kenali diri Anda lebih dalam melalui berbagai tes psikologi yang valid dan reliabel.</p>
+                                <a href="#" class="btn" data-nav-to="relasi-pengembangan">Selengkapnya</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-img">
+                                <img src="/api/placeholder/400/300" alt="Forum Diskusi">
+                            </div>
+                            <div class="card-content">
+                                <h3>Forum Diskusi</h3>
+                                <p>Berbagi pengalaman dan mendapatkan dukungan dari komunitas yang peduli tentang kesehatan mental.</p>
+                                <a href="#" class="btn" data-nav-to="diskusi">Selengkapnya</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-img">
+                                <img src="/api/placeholder/400/300" alt="Pustaka Digital">
+                            </div>
+                            <div class="card-content">
+                                <h3>Pustaka Digital</h3>
+                                <p>Akses berbagai sumber bacaan psikologi terkini yang disusun oleh para ahli di bidangnya.</p>
+                                <a href="#" class="btn" data-nav-to="pustaka">Selengkapnya</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-img">
+                                <img src="/api/placeholder/400/300" alt="Podcast">
+                            </div>
+                            <div class="card-content">
+                                <h3>Podcast & Video</h3>
+                                <p>Dengarkan diskusi mendalam tentang berbagai topik psikologi menarik bersama para pakar.</p>
+                                <a href="#" class="btn" data-nav-to="external-podcast">Selengkapnya</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="page" id="pustaka">
+            <section class="hero">
+                <div class="container">
+                    <h2>Pustaka Psikologi</h2>
+                    <p>Koleksi bacaan psikologi berkualitas untuk memperluas wawasan dan pemahaman Anda</p>
+                </div>
+            </section>
+
+            <section class="library">
+                <div class="container">
+                    <div class="section-title animate-on-scroll">
+                        <h2>Buku Rekomendasi</h2>
+                    </div>
+                    
+                    <div class="desktop-grid">
+                        <div class="book-card animate-on-scroll" style="--book-cover-url: url('https://picsum.photos/id/105/400/600');">
+                            <h3>Psikologi Positif: Seni Berbahagia</h3>
+                            <div class="author">Oleh: Dr. Seligman</div>
+                            <div class="description truncated">
+                                <p>Buku ini membahas tentang bagaimana kita dapat mengembangkan kebahagiaan otentik melalui konsep psikologi positif. Dr. Seligman menjelaskan bahwa kebahagiaan sejati berasal dari pengidentifikasian dan pengembangan kekuatan serta kebajikan kita, bukan hanya dari menghindari kesedihan atau mencari kesenangan semata. Buku ini penuh dengan latihan praktis dan penelitian terkini tentang bagaimana kita dapat meningkatkan kesejahteraan psikologis kita dalam kehidupan sehari-hari.</p>
+                            </div>
+                            <div class="book-actions">
+                                <span class="read-more">Selengkapnya</span>
+                                <span class="download-btn" data-download-url="https://example.com/psikologi-positif.pdf">Unduh</span>
+                            </div>
+                        </div>
+                        <div class="book-card animate-on-scroll" style="--book-cover-url: url('https://picsum.photos/id/111/400/600');">
+                            <h3>Pengantar Analisis Perilaku</h3>
+                            <div class="author">Oleh: B.F. Skinner</div>
+                            <div class="description truncated">
+                                <p>Karya klasik ini adalah pengantar yang mendalam ke dalam prinsip-prinsip behaviorisme dan analisis perilaku. Skinner menjelaskan konsep-konsep kunci seperti penguatan, hukuman, dan pembentukan perilaku. Meskipun kontroversial, buku ini adalah bacaan penting untuk memahami fondasi psikologi modern.</p>
+                            </div>
+                            <div class="book-actions">
+                                <span class="read-more">Selengkapnya</span>
+                                <span class="download-btn" data-download-url="https://example.com/analisis-perilaku.pdf">Unduh</span>
+                            </div>
+                        </div>
+                        <div class="book-card animate-on-scroll" style="--book-cover-url: url('https://picsum.photos/id/118/400/600');">
+                            <h3>Emosi: Apa yang Anda Rasakan?</h3>
+                            <div class="author">Oleh: Paul Ekman</div>
+                            <div class="description truncated">
+                                <p>Paul Ekman, seorang pionir dalam studi emosi manusia, membawa kita pada perjalanan untuk memahami bagaimana emosi terbentuk, diekspresikan, dan dikenali. Buku ini mengungkap kebenaran di balik ekspresi wajah dan bahasa tubuh, serta mengajarkan kita cara membaca perasaan orang lain secara lebih akurat.</p>
+                            </div>
+                            <div class="book-actions">
+                                <span class="read-more">Selengkapnya</span>
+                                <span class="download-btn" data-download-url="https://example.com/emosi-ekman.pdf">Unduh</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mobile-slider">
+                        <div class="book-card-container">
+                            <div class="book-card" style="--book-cover-url: url('https://picsum.photos/id/105/400/600');">
+                                <h3>Psikologi Positif: Seni Berbahagia</h3>
+                                <div class="author">Oleh: Dr. Seligman</div>
+                                <div class="description truncated">
+                                    <p>Buku ini membahas tentang bagaimana kita dapat mengembangkan kebahagiaan otentik melalui konsep psikologi positif. Dr. Seligman menjelaskan bahwa kebahagiaan sejati berasal dari pengidentifikasian dan pengembangan kekuatan serta kebajikan kita.</p>
+                                </div>
+                                <div class="book-actions">
+                                    <span class="read-more">Selengkapnya</span>
+                                    <span class="download-btn" data-download-url="https://example.com/psikologi-positif.pdf">Unduh</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card-container">
+                            <div class="book-card" style="--book-cover-url: url('https://picsum.photos/id/111/400/600');">
+                                <h3>Pengantar Analisis Perilaku</h3>
+                                <div class="author">Oleh: B.F. Skinner</div>
+                                <div class="description truncated">
+                                    <p>Karya klasik ini adalah pengantar yang mendalam ke dalam prinsip-prinsip behaviorisme dan analisis perilaku. Skinner menjelaskan konsep-konsep kunci seperti penguatan dan pembentukan perilaku.</p>
+                                </div>
+                                <div class="book-actions">
+                                    <span class="read-more">Selengkapnya</span>
+                                    <span class="download-btn" data-download-url="https://example.com/analisis-perilaku.pdf">Unduh</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card-container">
+                            <div class="book-card" style="--book-cover-url: url('https://picsum.photos/id/118/400/600');">
+                                <h3>Emosi: Apa yang Anda Rasakan?</h3>
+                                <div class="author">Oleh: Paul Ekman</div>
+                                <div class="description truncated">
+                                    <p>Paul Ekman, seorang pionir dalam studi emosi manusia, membawa kita pada perjalanan untuk memahami bagaimana emosi terbentuk, diekspresikan, dan dikenali.</p>
+                                </div>
+                                <div class="book-actions">
+                                    <span class="read-more">Selengkapnya</span>
+                                    <span class="download-btn" data-download-url="https://example.com/emosi-ekman.pdf">Unduh</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="articles">
+                <div class="container">
+                    <div class="section-title animate-on-scroll">
+                        <h2>Jurnal & Artikel</h2>
+                    </div>
+                    
+                    <div class="desktop-grid">
+                        <div class="book-card animate-on-scroll" style="--book-cover-url: url('https://picsum.photos/id/129/400/600');">
+                            <h3>Pengaruh Media Sosial terhadap Kesehatan Mental Remaja</h3>
+                            <div class="author">Oleh: Tim Riset Psikologi UI</div>
+                            <div class="description truncated">
+                                <p>Artikel ini membahas hasil penelitian terbaru tentang bagaimana penggunaan media sosial memengaruhi kesehatan mental remaja di Indonesia. Studi longitudinal selama dua tahun ini menemukan korelasi signifikan antara durasi penggunaan media sosial dengan tingkat kecemasan dan depresi pada remaja usia 13-18 tahun.</p>
+                            </div>
+                            <div class="book-actions">
+                                <span class="read-more">Selengkapnya</span>
+                                <span class="download-btn" data-download-url="https://example.com/jurnal-remaja.pdf">Unduh</span>
+                            </div>
+                        </div>
+                        <div class="book-card animate-on-scroll" style="--book-cover-url: url('https://picsum.photos/id/145/400/600');">
+                            <h3>Strategi Mengatasi Burnout di Tempat Kerja</h3>
+                            <div class="author">Oleh: Jurnal Psikologi Industri</div>
+                            <div class="description truncated">
+                                <p>Artikel ini menyajikan temuan dari studi yang menganalisis efektivitas berbagai strategi intervensi untuk mengatasi burnout pada karyawan. Ditemukan bahwa kombinasi dari mindfulness dan dukungan sosial secara signifikan mengurangi gejala kelelahan emosional dan sinisme.</p>
+                            </div>
+                            <div class="book-actions">
+                                <span class="read-more">Selengkapnya</span>
+                                <span class="download-btn" data-download-url="https://example.com/jurnal-burnout.docx">Unduh</span>
+                            </div>
+                        </div>
+                        <div class="book-card animate-on-scroll" style="--book-cover-url: url('https://picsum.photos/id/160/400/600');">
+                            <h3>Peran Orang Tua dalam Perkembangan Kecerdasan Emosional Anak</h3>
+                            <div class="author">Oleh: Dr. Clara Santosa</div>
+                            <div class="description truncated">
+                                <p>Penelitian ini menyoroti pentingnya peran orang tua dalam membentuk kecerdasan emosional (EQ) pada anak usia dini. Artikel ini memberikan panduan praktis berdasarkan bukti ilmiah untuk membantu orang tua menciptakan lingkungan yang mendukung perkembangan EQ.</p>
+                            </div>
+                            <div class="book-actions">
+                                <span class="read-more">Selengkapnya</span>
+                                <span class="download-btn" data-download-url="https://example.com/jurnal-eq-anak.pdf">Unduh</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mobile-slider">
+                        <div class="book-card-container">
+                            <div class="book-card" style="--book-cover-url: url('https://picsum.photos/id/129/400/600');">
+                                <h3>Pengaruh Media Sosial terhadap Kesehatan Mental Remaja</h3>
+                                <div class="author">Oleh: Tim Riset Psikologi UI</div>
+                                <div class="description truncated">
+                                    <p>Artikel ini membahas hasil penelitian terbaru tentang bagaimana penggunaan media sosial memengaruhi kesehatan mental remaja di Indonesia.</p>
+                                </div>
+                                <div class="book-actions">
+                                    <span class="read-more">Selengkapnya</span>
+                                    <span class="download-btn" data-download-url="https://example.com/jurnal-remaja.pdf">Unduh</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card-container">
+                            <div class="book-card" style="--book-cover-url: url('https://picsum.photos/id/145/400/600');">
+                                <h3>Strategi Mengatasi Burnout di Tempat Kerja</h3>
+                                <div class="author">Oleh: Jurnal Psikologi Industri</div>
+                                <div class="description truncated">
+                                    <p>Artikel ini menyajikan temuan dari studi yang menganalisis efektivitas berbagai strategi intervensi untuk mengatasi burnout pada karyawan.</p>
+                                </div>
+                                <div class="book-actions">
+                                    <span class="read-more">Selengkapnya</span>
+                                    <span class="download-btn" data-download-url="https://example.com/jurnal-burnout.docx">Unduh</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card-container">
+                            <div class="book-card" style="--book-cover-url: url('https://picsum.photos/id/160/400/600');">
+                                <h3>Peran Orang Tua dalam Perkembangan Kecerdasan Emosional Anak</h3>
+                                <div class="author">Oleh: Dr. Clara Santosa</div>
+                                <div class="description truncated">
+                                    <p>Penelitian ini menyoroti pentingnya peran orang tua dalam membentuk kecerdasan emosional (EQ) pada anak usia dini.</p>
+                                </div>
+                                <div class="book-actions">
+                                    <span class="read-more">Selengkapnya</span>
+                                    <span class="download-btn" data-download-url="https://example.com/jurnal-eq-anak.pdf">Unduh</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="page" id="kesehatan-mental">
+            <section class="hero">
+                <div class="container">
+                    <h2>Kesehatan Mental</h2>
+                    <p>Informasi dan sumber daya untuk memahami dan meningkatkan kesehatan mental Anda</p>
+                </div>
+            </section>
+
+            <section class="mental-health-info">
+                <div class="container">
+                    <div class="section-title animate-on-scroll">
+                        <h2>Memahami Kesehatan Mental</h2>
+                    </div>
+                    <div class="animate-on-scroll">
+                        <p>Kesehatan mental mencakup kesejahteraan emosional, psikologis, dan sosial kita. Ini memengaruhi cara kita berpikir, merasa, dan bertindak saat menghadapi kehidupan. Kesehatan mental juga membantu menentukan bagaimana kita menangani stres, berhubungan dengan orang lain, dan membuat pilihan.</p>
+                        <p>Sama seperti kesehatan fisik, kesehatan mental adalah aspek penting dari kesehatan secara keseluruhan. Kondisi kesehatan mental dapat memengaruhi pikiran, suasana hati, dan perilaku Anda. Banyak faktor yang berkontribusi pada masalah kesehatan mental, termasuk biologi, pengalaman hidup, dan riwayat keluarga.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mental-health-tips">
+                <div class="container">
+                    <div class="section-title animate-on-scroll">
+                        <h2>Tips Menjaga Kesehatan Mental</h2>
+                    </div>
+                    <div class="desktop-grid">
+                        <div class="card tips-card animate-on-scroll">
+                            <div class="card-content">
+                                <h3>Bangun Rutinitas Sehat</h3>
+                                <p>Menciptakan dan mempertahankan rutinitas harian yang sehat dapat membantu menjaga stabilitas kesehatan mental...</p>
+                                <div class="card-more-content">
+                                    <p>Ini termasuk tidur yang cukup (7-9 jam per malam), makan makanan bergizi untuk menopang otak, dan berolahraga secara teratur. Bahkan 30 menit jalan kaki setiap hari dapat secara signifikan mengurangi stres dan meningkatkan suasana hati. Jangan lupa untuk menyisihkan waktu untuk relaksasi dan hobi yang Anda nikmati.</p>
+                                </div>
+                                <button class="read-more-btn">Selengkapnya</button>
+                            </div>
+                        </div>
+                        <div class="card tips-card animate-on-scroll">
+                            <div class="card-content">
+                                <h3>Jaga Hubungan Sosial</h3>
+                                <p>Hubungan yang kuat dengan keluarga, teman, dan orang terdekat memberikan dukungan sosial yang krusial...</p>
+                                <div class="card-more-content">
+                                    <p>Interaksi sosial yang positif dapat mengurangi perasaan kesepian dan memberikan rasa memiliki. Luangkan waktu untuk terhubung dengan mereka, baik melalui telepon, video call, atau bertemu langsung. Berbagi cerita dan membangun koneksi yang bermakna sangat penting untuk kesejahteraan emosional.</p>
+                                </div>
+                                <button class="read-more-btn">Selengkapnya</button>
+                            </div>
+                        </div>
+                        <div class="card tips-card animate-on-scroll">
+                            <div class="card-content">
+                                <h3>Latih Kesadaran (Mindfulness)</h3>
+                                <p>Latihan mindfulness atau kesadaran penuh membantu Anda fokus pada saat ini, mengurangi overthinking dan kecemasan...</p>
+                                <div class="card-more-content">
+                                    <p>Mindfulness adalah praktik menaruh perhatian pada saat ini tanpa menghakimi. Ini dapat dilakukan melalui meditasi singkat, yoga, atau sekadar luangkan beberapa menit setiap hari untuk bernapas secara sadar dan memperhatikan sensasi di tubuh Anda. Latihan ini terbukti dapat meredakan gejala stres dan depresi.</p>
+                                </div>
+                                <button class="read-more-btn">Selengkapnya</button>
+                            </div>
+                        </div>
+                        <div class="card tips-card animate-on-scroll">
+                            <div class="card-content">
+                                <h3>Kelola Stres</h3>
+                                <p>Identifikasi sumber stres dalam hidup Anda dan temukan cara yang sehat untuk mengelolanya...</p>
+                                <div class="card-more-content">
+                                    <p>Tidak semua stres itu buruk, tapi stres kronis bisa merusak kesehatan mental dan fisik. Identifikasi pemicu stres dan temukan strategi coping yang efektif, seperti menulis jurnal, mendengarkan musik, berlibur, atau berbicara dengan orang yang Anda percaya. Belajar teknik relaksasi seperti pernapasan dalam juga sangat membantu.</p>
+                                </div>
+                                <button class="read-more-btn">Selengkapnya</button>
+                            </div>
+                        </div>
+                        <div class="card tips-card animate-on-scroll">
+                            <div class="card-content">
+                                <h3>Cari Bantuan Profesional</h3>
+                                <p>Jika Anda merasa kewalahan, jangan ragu untuk mencari bantuan dari profesional...</p>
+                                <div class="card-more-content">
+                                    <p>Sama seperti Anda akan menemui dokter untuk masalah fisik, menemui psikolog atau konselor untuk masalah mental adalah hal yang wajar dan bijaksana. Mereka dapat memberikan panduan, alat, dan strategi yang efektif untuk mengatasi masalah mental yang Anda hadapi, dari kecemasan hingga trauma.</p>
+                                </div>
+                                <button class="read-more-btn">Selengkapnya</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mobile-slider">
+                         <div class="card tips-card">
+                            <div class="card-content">
+                                <h3>Bangun Rutinitas Sehat</h3>
+                                <p>Menciptakan dan mempertahankan rutinitas harian yang sehat dapat membantu menjaga stabilitas kesehatan mental...</p>
+                                <div class="card-more-content">
+                                    <p>Ini termasuk tidur yang cukup (7-9 jam per malam), makan makanan bergizi untuk menopang otak, dan berolahraga secara teratur. Bahkan 30 menit jalan kaki setiap hari dapat secara signifikan mengurangi stres dan meningkatkan suasana hati. Jangan lupa untuk menyisihkan waktu untuk relaksasi dan hobi yang Anda nikmati.</p>
+                                </div>
+                                <button class="read-more-btn">Selengkapnya</button>
+                            </div>
+                        </div>
+                        <div class="card tips-card">
+                            <div class="card-content">
+                                <h3>Jaga Hubungan Sosial</h3>
+                                <p>Hubungan yang kuat dengan keluarga, teman, dan orang terdekat memberikan dukungan sosial yang krusial...</p>
+                                <div class="card-more-content">
+                                    <p>Interaksi sosial yang positif dapat mengurangi perasaan kesepian dan memberikan rasa memiliki. Luangkan waktu untuk terhubung dengan mereka, baik melalui telepon, video call, atau bertemu langsung. Berbagi cerita dan membangun koneksi yang bermakna sangat penting untuk kesejahteraan emosional.</p>
+                                </div>
+                                <button class="read-more-btn">Selengkapnya</button>
+                            </div>
+                        </div>
+                        <div class="card tips-card">
+                            <div class="card-content">
+                                <h3>Latih Kesadaran (Mindfulness)</h3>
+                                <p>Latihan mindfulness atau kesadaran penuh membantu Anda fokus pada saat ini, mengurangi overthinking dan kecemasan...</p>
+                                <div class="card-more-content">
+                                    <p>Mindfulness adalah praktik menaruh perhatian pada saat ini tanpa menghakimi. Ini dapat dilakukan melalui meditasi singkat, yoga, atau sekadar luangkan beberapa menit setiap hari untuk bernapas secara sadar dan memperhatikan sensasi di tubuh Anda. Latihan ini terbukti dapat meredakan gejala stres dan depresi.</p>
+                                </div>
+                                <button class="read-more-btn">Selengkapnya</button>
+                            </div>
+                        </div>
+                        <div class="card tips-card">
+                            <div class="card-content">
+                                <h3>Kelola Stres</h3>
+                                <p>Identifikasi sumber stres dalam hidup Anda dan temukan cara yang sehat untuk mengelolanya...</p>
+                                <div class="card-more-content">
+                                    <p>Tidak semua stres itu buruk, tapi stres kronis bisa merusak kesehatan mental dan fisik. Identifikasi pemicu stres dan temukan strategi coping yang efektif, seperti menulis jurnal, mendengarkan musik, berlibur, atau berbicara dengan orang yang Anda percaya. Belajar teknik relaksasi seperti pernapasan dalam juga sangat membantu.</p>
+                                </div>
+                                <button class="read-more-btn">Selengkapnya</button>
+                            </div>
+                        </div>
+                        <div class="card tips-card">
+                            <div class="card-content">
+                                <h3>Cari Bantuan Profesional</h3>
+                                <p>Jika Anda merasa kewalahan, jangan ragu untuk mencari bantuan dari profesional...</p>
+                                <div class="card-more-content">
+                                    <p>Sama seperti Anda akan menemui dokter untuk masalah fisik, menemui psikolog atau konselor untuk masalah mental adalah hal yang wajar dan bijaksana. Mereka dapat memberikan panduan, alat, dan strategi yang efektif untuk mengatasi masalah mental yang Anda hadapi, dari kecemasan hingga trauma.</p>
+                                </div>
+                                <button class="read-more-btn">Selengkapnya</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="page" id="relasi-pengembangan">
+            <section class="hero">
+                <div class="container">
+                    <h2>Relasi & Pengembangan Diri</h2>
+                    <p>Kembangkan keterampilan komunikasi dan hubungan yang lebih baik</p>
+                </div>
+            </section>
+
+            <section class="relationships">
+                <div class="container">
+                    <div class="section-title animate-on-scroll">
+                        <h2>Membangun Hubungan yang Sehat</h2>
+                    </div>
+                    <div class="animate-on-scroll">
+                        <p>Hubungan yang sehat adalah fondasi penting untuk kesejahteraan mental dan emosional kita. Kemampuan untuk membangun dan memelihara hubungan yang positif dengan orang lain memungkinkan kita untuk merasa terhubung, didukung, dan dihargai. Ini tidak hanya berlaku untuk hubungan romantis, tetapi juga untuk keluarga, teman, dan kolega.</p>
+                        <p>Pengembangan diri adalah proses seumur hidup yang membantu kita mencapai potensi penuh. Ini melibatkan peningkatan kesadaran diri, pemahaman emosi, dan pengembangan keterampilan praktis yang dapat meningkatkan kualitas hidup kita. Melalui pengembangan diri, kita bisa menjadi individu yang lebih tangguh, adaptif, dan bahagia.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="tests">
+                <div class="container">
+                    <div class="section-title animate-on-scroll">
+                        <h2>Tes & Kuis</h2>
+                        <p>Ikuti kuis sederhana untuk mengenal diri Anda lebih baik atau pahami tes profesional.</p>
+                    </div>
+
+                    <div id="quiz-intro" class="quiz-section active">
+                        <h3>Daftar Kuis Refleksi Diri</h3>
+                        <p>Kuis ini dirancang untuk memberikan gambaran umum tentang aspek-aspek diri Anda. Hasilnya bersifat panduan dan tidak dapat digunakan sebagai alat diagnostik.</p>
+                        
+                        <div id="quiz-list-desktop" class="desktop-grid">
+                            </div>
+                        <div id="quiz-list-mobile" class="mobile-slider">
+                            </div>
+                    </div>
+
+                    <div id="quiz-prep" class="quiz-container quiz-section animate-on-scroll">
+                        <div class="section-title">
+                            <h2 id="prep-quiz-title"></h2>
+                        </div>
+                        <p id="prep-quiz-description"></p>
+                        <div class="quiz-info-details">
+                            <p><b>Jumlah Soal:</b> <span id="prep-question-count"></span></p>
+                            <p><b>Waktu Pengerjaan:</b> <span id="prep-time-limit"></span></p>
+                        </div>
+                        <p id="prep-quiz-disclaimer" class="quiz-disclaimer"></p>
+                        <div class="quiz-form-actions">
+                            <button type="button" class="btn" id="cancel-prep">Batalkan</button>
+                            <button type="button" class="btn" id="start-quiz">Mulai Kuis</button>
+                        </div>
+                    </div>
+
+                    <div id="quiz-area" class="quiz-container quiz-section animate-on-scroll">
+                        <div class="quiz-header">
+                            <h3 id="quiz-title"></h3>
+                            <div class="quiz-timer"></div>
+                        </div>
+                        <p id="quiz-description"></p>
+                        <form id="quiz-form"></form>
+                        <div class="quiz-form-actions">
+                            <button type="button" class="btn" id="cancel-quiz">Batalkan</button>
+                            <button type="submit" class="btn" id="submit-quiz">Lihat Hasil</button>
+                        </div>
+                    </div>
+
+                    <div id="quiz-result" class="quiz-container quiz-result quiz-section animate-on-scroll">
+                        <div id="result-content">
+                            <h3 id="result-title"></h3>
+                            <p id="result-text"></p>
+                        </div>
+                        <div class="quiz-actions">
+                            <button class="btn" id="retake-quiz">Ulangi Tes</button>
+                            <button class="btn" id="back-to-list">Kembali ke Daftar Kuis</button>
+                        </div>
+                    </div>
+
+                    <div class="professional-tests-list animate-on-scroll">
+                        <h3>Mengenal Tes Psikologi Profesional</h3>
+                        <p>Tes di bawah ini adalah alat diagnostik yang valid dan harus dilakukan serta diinterpretasi oleh psikolog profesional. Informasi ini bertujuan untuk memberikan edukasi, bukan untuk diagnosis mandiri.</p>
+
+                        <h4>1. Tes Kepribadian</h4>
+                        <ul>
+                            <li><b>16Personalities (MBTI) & Big Five Personality Traits:</b> Mengukur pola perilaku dan preferensi. Sering digunakan dalam konteks pengembangan diri atau karir.</li>
+                            <li><b>Tes Enneagram & DiSC:</b> Memahami motivasi dan gaya perilaku interpersonal.</li>
+                            <li><b>Tes Proyektif (Rorschach, Wartegg):</b> Menggunakan gambar ambigu untuk mengungkap aspek kepribadian bawah sadar. Interpretasinya sangat kompleks dan subyektif, hanya bisa dilakukan oleh ahli.</li>
+                            <li><b>PAPI Kostick Test:</b> Menilai peran dan kebutuhan dalam lingkungan kerja.</li>
+                        </ul>
+
+                        <h4>2. Tes IQ (Kecerdasan)</h4>
+                        <ul>
+                            <li><b>WAIS (Wechsler Adult Intelligence Scale) & IST:</b> Mengukur kemampuan kognitif dan intelektual seseorang. Hasilnya adalah skor IQ yang valid secara klinis.</li>
+                            <li><b>CFIT (Culture Fair Intelligence Test):</b> Tes non-verbal untuk mengukur kecerdasan tanpa bias budaya.</li>
+                        </ul>
+
+                        <h4>3. Tes Kesehatan Mental dan Psikologis Lainnya</h4>
+                        <ul>
+                            <li><b>Tes Stres, Kecemasan, dan Depresi (misalnya, DASS):</b> Menggunakan skala untuk mengukur tingkat keparahan kondisi emosional tertentu. Alat ini sering digunakan dalam asesmen awal oleh klinisi.</li>
+                            <li><b>Tes Kemandirian & Kepercayaan Diri:</b> Biasanya merupakan bagian dari asesmen yang lebih luas untuk memahami dinamika kepribadian seseorang.</li>
+                            <li><b>Tes Daya Ingat:</b> Digunakan untuk menilai fungsi kognitif, sering kali dalam konteks neurologis atau kondisi seperti demensia.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="page" id="diskusi">
+            <section class="hero">
+                <div class="container">
+                    <h2>Mari Diskusi</h2>
+                    <p>Bergabung dalam forum diskusi untuk berbagi pengalaman dan mendapatkan dukungan</p>
+                </div>
+            </section>
+
+            <section class="discussion">
+                <div class="container">
+                    <div class="section-title animate-on-scroll">
+                        <h2>Forum Diskusi</h2>
+                        <p>Topik yang ditampilkan adalah topik populer yang sering dibicarakan dalam komunitas kami.</p>
+                    </div>
+                    <div class="discussion-area animate-on-scroll">
+                        <div class="topic-tabs">
+                            <div class="topic-tab active" data-topic="terkini">Topik Terkini</div>
+                            <div class="topic-tab" data-topic="hangat">Topik Hangat</div>
+                        </div>
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <div class="topic-header">
+                                    <div class="topic-title">Cara Mengatasi Kecemasan Sosial Pasca Pandemi</div>
+                                    <div class="topic-meta">Oleh: Anita • 2 jam yang lalu</div>
+                                </div>
+                                <p>Sudah hampir setahun sejak pandemi berakhir, tapi saya masih merasa cemas ketika harus berinteraksi sosial dalam kelompok besar. Apakah ada yang mengalami hal yang sama?</p>
+                                <div class="topic-actions">
+                                    <div class="topic-action">
+                                        <span>👍</span> 12 Suka
+                                    </div>
+                                    <div class="topic-action">
+                                        <span>💬</span> 8 Komentar
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="topic-item">
+                                <div class="topic-header">
+                                    <div class="topic-title">Bagaimana Membangun Batasan Sehat dalam Hubungan?</div>
+                                    <div class="topic-meta">Oleh: Budi • 5 jam yang lalu</div>
+                                </div>
+                                <p>Saya sering merasa dimanfaatkan dalam hubungan persahabatan. Adakah tips untuk bisa menolak atau mengatakan 'tidak' tanpa merasa bersalah?</p>
+                                <div class="topic-actions">
+                                    <div class="topic-action">
+                                        <span>👍</span> 25 Suka
+                                    </div>
+                                    <div class="topic-action">
+                                        <span>💬</span> 15 Komentar
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="topic-item">
+                                <div class="topic-header">
+                                    <div class="topic-title">Mengelola Ekspektasi Diri di Usia 20-an</div>
+                                    <div class="topic-meta">Oleh: Citra • 1 hari yang lalu</div>
+                                </div>
+                                <p>Saya merasa tertekan harus mencapai banyak hal di usia ini. Bagaimana cara realistis mengelola ekspektasi dan tetap termotivasi?</p>
+                                <div class="topic-actions">
+                                    <div class="topic-action">
+                                        <span>👍</span> 42 Suka
+                                    </div>
+                                    <div class="topic-action">
+                                        <span>💬</span> 30 Komentar
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-container animate-on-scroll">
+                        <div class="chat-tabs">
+                            <div class="chat-tab active" data-chat="live">Obrolan Langsung</div>
+                            <div class="chat-tab" data-chat="ai">Obrolan AI</div>
+                        </div>
+                        
+                        <div class="chat-body active" id="live-chat-body">
+                            <div class="chat-messages" id="chat-messages">
+                                <div class="message incoming">
+                                    <div class="message-content">
+                                        <p>Halo, ada yang online? Saya ingin bertanya tentang manajemen stres.</p>
+                                    </div>
+                                </div>
+                                <div class="message outgoing">
+                                    <div class="message-content">
+                                        <p>Hai! Saya di sini. Apa yang ingin Anda ketahui tentang manajemen stres?</p>
+                                    </div>
+                                </div>
+                                <div class="message incoming">
+                                    <div class="message-content">
+                                        <p>Saya sering merasa tertekan di tempat kerja. Adakah tips cepat untuk mengatasinya?</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chat-input">
+                                <input type="text" id="chat-input-field" placeholder="Ketik pesan Anda...">
+                                <button id="send-message">➤</button>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-body" id="ai-chat-body">
+                            <div class="chat-messages" id="ai-chat-messages">
+                                <div class="message incoming">
+                                    <div class="message-content">
+                                        <p>Halo! Saya adalah AI Psikologi Bicara, siap membantu Anda. Silakan sampaikan apa yang ingin Anda diskusikan. 😊</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chat-input">
+                                <input type="text" id="ai-chat-input-field" placeholder="Ketik pesan Anda...">
+                                <button id="send-ai-message">➤</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="page" id="konsultasi">
+            <section class="hero">
+                <div class="container">
+                    <h2>Konsultasi Psikologi</h2>
+                    <p>Konsultasikan masalah Anda dengan psikolog profesional</p>
+                </div>
+            </section>
+
+            <section class="consultation-info">
+                <div class="container">
+                    <div class="section-title animate-on-scroll">
+                        <h2>Layanan Konsultasi</h2>
+                    </div>
+                    <div class="animate-on-scroll">
+                        <p>Konsultasi psikologi adalah proses di mana Anda dapat berbicara dengan psikolog profesional tentang masalah atau tantangan yang Anda hadapi. Psikolog akan membantu Anda mengeksplorasi pikiran, perasaan, dan perilaku untuk menemukan solusi yang sesuai dengan kebutuhan Anda.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="psychologists">
+                <div class="container">
+                    <div class="section-title animate-on-scroll">
+                        <h2>Pilih Psikolog</h2>
+                    </div>
+                    
+                    <div class="desktop-grid">
+                        <div class="psychologist-card animate-on-scroll">
+                            <div class="psychologist-img">
+                                <img src="/api/placeholder/400/400" alt="Dr. Rina Wijaya">
+                            </div>
+                            <div class="psychologist-info">
+                                <h3>Dr. Rina Wijaya, M.Psi</h3>
+                                <div class="specialization">Psikologi Klinis</div>
+                                <div class="rating">
+                                    <span>⭐⭐⭐⭐⭐</span> (4.9)
+                                </div>
+                                <p>Spesialis dalam menangani masalah kecemasan, depresi, dan trauma dengan pendekatan Cognitive-Behavioral Therapy (CBT).</p>
+                                <div class="select-psychologist" data-id="1">Pilih</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mobile-slider">
+                        <div class="psychologist-card">
+                            <div class="psychologist-img">
+                                <img src="/api/placeholder/400/400" alt="Dr. Rina Wijaya">
+                            </div>
+                            <div class="psychologist-info">
+                                <h3>Dr. Rina Wijaya, M.Psi</h3>
+                                <div class="specialization">Psikologi Klinis</div>
+                                <div class="rating">
+                                    <span>⭐⭐⭐⭐⭐</span> (4.9)
+                                </div>
+                                <p>Spesialis dalam menangani masalah kecemasan, depresi, dan trauma dengan pendekatan Cognitive-Behavioral Therapy (CBT).</p>
+                                <div class="select-psychologist" data-id="1">Pilih</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="consultation-form">
+                <div class="container">
+                    <div class="section-title animate-on-scroll">
+                        <h2>Form Permintaan Konsultasi</h2>
+                    </div>
+                    <form id="consultation-form" class="animate-on-scroll">
+                        <div class="form-group">
+                            <label for="name">Nama Lengkap</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Nomor Telepon</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="consultation-type">Jenis Konsultasi</label>
+                            <select id="consultation-type" name="consultation-type" required>
+                                <option value="">Pilih Jenis Konsultasi</option>
+                                <option value="anxiety">Kecemasan</option>
+                                <option value="depression">Depresi</option>
+                                <option value="relationship">Masalah Hubungan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="method">Metode Konsultasi</label>
+                            <select id="method" name="method" required>
+                                <option value="">Pilih Metode</option>
+                                <option value="online">Online</option>
+                                <option value="offline">Tatap Muka Langsung</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="date">Tanggal Konsultasi</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Waktu Konsultasi</label>
+                            <input type="time" id="time" name="time" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="issue">Keluhan/Masalah</label>
+                            <textarea id="issue" name="issue" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Kirim Permintaan</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Psikologi Bicara</h3>
+                    <p>Platform psikologi modern untuk membantu Anda memahami diri dan menumbuhkan hubungan yang lebih baik.</p>
+                    <div class="social-icons">
+                        <a href="#"><span>FB</span></a>
+                        <a href="#"><span>IG</span></a>
+                        <a href="#"><span>TW</span></a>
+                        <a href="#"><span>YT</span></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Navigasi</h3>
+                    <ul>
+                        <li><a href="#" data-page="home">Home</a></li>
+                        <li><a href="#" data-page="pustaka">Pustaka</a></li>
+                        <li><a href="#" data-page="kesehatan-mental">Kesehatan Mental</a></li>
+                        <li><a href="#" data-page="relasi-pengembangan">Relasi & Pengembangan</a></li>
+                        <li><a href="#" data-page="diskusi">Mari Diskusi</a></li>
+                        <li><a href="#" data-page="konsultasi">Konsultasi</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Kontak</h3>
+                    <ul>
+                        <li>Email: info@psikologibicara.id</li>
+                        <li>Telepon: +62 21 1234 5678</li>
+                        <li>Alamat: Jl. Psikologi No. 123, Jakarta, Indonesia</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Psikologi Bicara. Seluruh hak cipta dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+// DOM Elements
+const burger = document.querySelector('.burger');
+const navLinks = document.querySelector('.nav-links');
+const navItems = document.querySelectorAll('.nav-item');
+const pages = document.querySelectorAll('.page');
+const readMoreBtns = document.querySelectorAll('.read-more');
+const downloadBtns = document.querySelectorAll('.download-btn');
+const selectPsychologistBtns = document.querySelectorAll('.select-psychologist');
+const consultationForm = document.getElementById('consultation-form');
+const topicTabs = document.querySelectorAll('.topic-tab');
+const footerLinks = document.querySelectorAll('.footer-column a[data-page]');
+const homePageBtns = document.querySelectorAll('#home .btn[data-nav-to]');
+
+// New DOM Elements for Quiz
+const quizIntro = document.getElementById('quiz-intro');
+const quizListDesktop = document.getElementById('quiz-list-desktop');
+const quizListMobile = document.getElementById('quiz-list-mobile');
+
+const quizPrep = document.getElementById('quiz-prep');
+const startQuizBtn = document.getElementById('start-quiz');
+const cancelPrepBtn = document.getElementById('cancel-prep');
+
+const quizArea = document.getElementById('quiz-area');
+const quizForm = document.getElementById('quiz-form');
+const submitQuizBtn = document.getElementById('submit-quiz');
+const quizResult = document.getElementById('quiz-result');
+const retakeQuizBtn = document.getElementById('retake-quiz');
+const cancelQuizBtn = document.getElementById('cancel-quiz');
+const backToListBtn = document.getElementById('back-to-list');
+
+// New DOM Elements for Chat Tabs
+const liveChatTab = document.querySelector('.chat-tab[data-chat="live"]');
+const aiChatTab = document.querySelector('.chat-tab[data-chat="ai"]');
+const liveChatBody = document.getElementById('live-chat-body');
+const aiChatBody = document.getElementById('ai-chat-body');
+
+// Old chat elements for live chat
+const chatInput = document.getElementById('chat-input-field');
+const sendMessageBtn = document.getElementById('send-message');
+const chatMessages = document.getElementById('chat-messages');
+
+// New chat elements for AI chat
+const aiChatInput = document.getElementById('ai-chat-input-field');
+const sendAIMessageBtn = document.getElementById('send-ai-message');
+const aiChatMessages = document.getElementById('ai-chat-messages');
+
+// Selected psychologist
+let selectedPsychologist = null;
+
+// NEW: Quiz data and state
+let quizzes = [];
+let currentQuizId = null;
+let quizTimer;
+
+// Mobile menu toggle
+burger.addEventListener('click', () => {
+    if (navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        navLinks.classList.add('closing');
+        setTimeout(() => {
+            navLinks.classList.remove('closing');
+        }, 300);
+    } else {
+        navLinks.classList.add('active');
+    }
+    burger.classList.toggle('active');
+});
+
+// Page navigation
+function navigateToPage(pageId) {
+    pages.forEach(page => {
+        page.classList.remove('active');
+        if (page.id === pageId) {
+            page.classList.add('active');
+            window.scrollTo(0, 0);
+            checkAnimateElements();
+        }
+    });
+    
+    navItems.forEach(item => {
+        item.classList.remove('active');
+        if (item.dataset.page === pageId) {
+            item.classList.add('active');
+        }
+    });
+    
+    // Close mobile menu when navigating
+    if (navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        navLinks.classList.add('closing');
+        setTimeout(() => {
+            navLinks.classList.remove('closing');
+        }, 300);
+        burger.classList.remove('active');
+    }
+}
+
+// Event listeners for navigation from main nav
+navItems.forEach(item => {
+    item.addEventListener('click', () => {
+        navigateToPage(item.dataset.page);
+    });
+});
+
+// Event listeners for navigation from Home page cards
+homePageBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const navTo = btn.dataset.navTo;
+        if (navTo.startsWith('external')) {
+            alert(`Fitur ini akan mengarahkan Anda ke platform eksternal.`);
+            // Dalam implementasi nyata, Anda akan menggunakan window.open() atau navigasi lainnya
+        } else {
+            navigateToPage(navTo);
+        }
+    });
+});
+
+// Footer navigation links
+footerLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        navigateToPage(link.dataset.page);
+    });
+});
+
+// Read more functionality
+readMoreBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const description = btn.closest('.book-card').querySelector('.description');
+        description.classList.toggle('truncated');
+        description.classList.toggle('full-text');
+        btn.textContent = description.classList.contains('truncated') ? 'Selengkapnya' : 'Tutup';
+    });
+});
+
+// Download button functionality
+downloadBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const title = btn.closest('.book-card').querySelector('h3').textContent;
+        const downloadUrl = btn.dataset.downloadUrl;
+        
+        if (downloadUrl && downloadUrl !== '#') {
+            alert(`Mengunduh "${title}". Silakan periksa folder unduhan Anda. Ini adalah simulasi.`);
+            // Dalam implementasi nyata, Anda bisa mengarahkan langsung ke URL file:
+            // window.location.href = downloadUrl;
+        } else {
+            alert(`Fitur unduh untuk "${title}" belum tersedia. Ini adalah placeholder.`);
+        }
+    });
+});
+
+// Select psychologist functionality
+selectPsychologistBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        selectPsychologistBtns.forEach(b => {
+            b.closest('.psychologist-card').classList.remove('selected');
+        });
+        btn.closest('.psychologist-card').classList.add('selected');
+        selectedPsychologist = btn.dataset.id;
+        
+        // Scroll to consultation form
+        document.querySelector('.consultation-form').scrollIntoView({ behavior: 'smooth' });
+        
+        // Auto-populate psychologist name in form or show selection
+        const psychologistName = btn.closest('.psychologist-info').querySelector('h3').textContent;
+        alert(`Psikolog ${psychologistName} dipilih untuk konsultasi.`);
+    });
+});
+
+// Consultation form submission
+if (consultationForm) {
+    consultationForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Form validation
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const consultationType = document.getElementById('consultation-type').value;
+        const method = document.getElementById('method').value;
+        const date = document.getElementById('date').value;
+        const time = document.getElementById('time').value;
+        const issue = document.getElementById('issue').value;
+        
+        if (!name || !email || !phone || !consultationType || !method || !date || !time || !issue) {
+            alert('Mohon lengkapi semua field pada form.');
+            return;
+        }
+        
+        if (!selectedPsychologist) {
+            alert('Silakan pilih psikolog terlebih dahulu.');
+            return;
+        }
+        
+        // Submit form - in a real implementation, this would send data to a server
+        alert(`Terima kasih, ${name}! Permintaan konsultasi Anda telah dikirim. Kami akan menghubungi Anda segera.`);
+        consultationForm.reset();
+        selectedPsychologist = null;
+        
+        // Remove selected class from all psychologist cards
+        document.querySelectorAll('.psychologist-card').forEach(card => {
+            card.classList.remove('selected');
+        });
+    });
+}
+
+// Topic tabs functionality
+topicTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        topicTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        alert(`Menampilkan ${tab.textContent}. (Fitur ini adalah demo. Fungsionalitas penuh memerlukan database.)`);
+    });
+});
+
+// --- Obrolan Langsung & Obrolan AI Logic ---
+
+// Function to switch chat tabs
+function switchChatTab(tabId) {
+    document.querySelectorAll('.chat-tab').forEach(tab => tab.classList.remove('active'));
+    document.querySelectorAll('.chat-body').forEach(body => body.classList.remove('active'));
+
+    if (tabId === 'live') {
+        liveChatTab.classList.add('active');
+        liveChatBody.classList.add('active');
+    } else if (tabId === 'ai') {
+        aiChatTab.classList.add('active');
+        aiChatBody.classList.add('active');
+    }
+}
+
+// Add event listeners for chat tabs
+if (liveChatTab && aiChatTab) {
+    liveChatTab.addEventListener('click', () => switchChatTab('live'));
+    aiChatTab.addEventListener('click', () => switchChatTab('ai'));
+}
+
+// Helper function to append messages
+function appendMessage(chatContainer, text, type) {
+    const messageElement = document.createElement('div');
+    messageElement.className = `message ${type}`;
+    messageElement.innerHTML = `
+        <div class="message-content">
+            <p>${text}</p>
+        </div>
+    `;
+    chatContainer.appendChild(messageElement);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+    return messageElement;
+}
+
+// Obrolan Langsung functionality (original)
+if (sendMessageBtn && chatInput && chatMessages) {
+    sendMessageBtn.addEventListener('click', sendLiveChatMessage);
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            sendLiveChatMessage();
+        }
+    });
+}
+
+function sendLiveChatMessage() {
+    const message = chatInput.value.trim();
+    if (message) {
+        appendMessage(chatMessages, message, 'outgoing');
+        chatInput.value = '';
+        
+        setTimeout(() => {
+            appendMessage(chatMessages, 'Terima kasih atas pesannya. Salah satu anggota komunitas kami akan merespons segera. (Ini adalah simulasi)', 'incoming');
+        }, 1000);
+    }
+}
+
+// Obrolan AI functionality
+if (sendAIMessageBtn && aiChatInput && aiChatMessages) {
+    sendAIMessageBtn.addEventListener('click', sendAIChatMessage);
+    aiChatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            sendAIChatMessage();
+        }
+    });
+}
+
+async function sendAIChatMessage() {
+    const message = aiChatInput.value.trim();
+    if (message) {
+        appendMessage(aiChatMessages, message, 'outgoing');
+        aiChatInput.value = '';
+
+        const typingIndicator = appendMessage(aiChatMessages, '...', 'incoming');
+        aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+
+        try {
+            // CATATAN PENTING: API ini adalah placeholder publik. 
+            // Untuk implementasi sungguhan, gunakan API berbayar seperti OpenAI atau Google Gemini.
+            const response = await fetch(`https://text.pollinations.ai/${encodeURIComponent(message)}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+            const aiResponseText = await response.text();
+            typingIndicator.remove();
+            appendMessage(aiChatMessages, aiResponseText, 'incoming');
+        } catch (error) {
+            console.error('Error fetching AI response:', error);
+            typingIndicator.remove();
+            appendMessage(aiChatMessages, 'Maaf, terjadi kesalahan saat menghubungi AI. Silakan coba lagi nanti.', 'incoming');
+        }
+        
+        aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+    }
+}
+
+// Scroll animations
+const animateElements = document.querySelectorAll('.animate-on-scroll');
+
+function checkAnimateElements() {
+    const triggerBottom = window.innerHeight * 0.8;
+    
+    animateElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        if (elementTop < triggerBottom) {
+            element.classList.add('show');
+        }
+    });
+}
+
+// Initial check for elements in view
+checkAnimateElements();
+
+// Check for elements on scroll
+window.addEventListener('scroll', checkAnimateElements);
+
+// Mobile slider functionality - for horizontal scrolling on mobile
+const mobileSliders = document.querySelectorAll('.mobile-slider');
+mobileSliders.forEach(slider => {
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        slider.style.cursor = 'grabbing';
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    });
+
+    slider.addEventListener('mouseleave', () => {
+        isDown = false;
+        slider.style.cursor = 'grab';
+    });
+
+    slider.addEventListener('mouseup', () => {
+        isDown = false;
+        slider.style.cursor = 'grab';
+    });
+
+    slider.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 2; // Scroll speed
+        slider.scrollLeft = scrollLeft - walk;
+    });
+});
+
+// Search functionality
+const searchBox = document.querySelector('.search-box input');
+const searchBtn = document.querySelector('.search-box button');
+
+if (searchBox && searchBtn) {
+    searchBtn.addEventListener('click', performSearch);
+    searchBox.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
+}
+
+function performSearch() {
+    const searchTerm = searchBox.value.trim();
+    if (searchTerm) {
+        alert(`Mencari: "${searchTerm}"`);
+        // Implement actual search functionality here
+        searchBox.value = '';
+    }
+}
+
+// NEW: Health tips "Read More" functionality
+const tipsCards = document.querySelectorAll('.tips-card');
+tipsCards.forEach(card => {
+    const btn = card.querySelector('.read-more-btn');
+    btn.addEventListener('click', () => {
+        card.classList.toggle('expanded');
+        btn.textContent = card.classList.contains('expanded') ? 'Tutup' : 'Selengkapnya';
+    });
+});
+
+
+// NEW: Quiz functionality
+async function fetchQuizzes() {
+    try {
+        const response = await fetch('quizzes.json');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        quizzes = await response.json();
+        renderQuizList();
+    } catch (e) {
+        console.error("Gagal memuat quizzes.json:", e);
+        const quizListContainer = document.getElementById('quiz-list-desktop');
+        if (quizListContainer) {
+            quizListContainer.innerHTML = "<p>Maaf, kuis tidak dapat dimuat saat ini. Silakan coba lagi nanti.</p>";
+        }
+    }
+}
+
+function renderQuizList() {
+    if (!quizListDesktop || !quizListMobile) {
+        return;
+    }
+
+    quizListDesktop.innerHTML = '';
+    quizListMobile.innerHTML = '';
+    
+    quizzes.forEach(quiz => {
+        const quizItem = document.createElement('div');
+        quizItem.className = 'quiz-list-item animate-on-scroll';
+        quizItem.dataset.id = quiz.id;
+        quizItem.innerHTML = `
+            <h3>${quiz.title}</h3>
+            <p>${quiz.description}</p>
+        `;
+        quizItem.addEventListener('click', () => showQuizPrep(quiz.id));
+        
+        quizListDesktop.appendChild(quizItem.cloneNode(true));
+        quizListMobile.appendChild(quizItem);
+    });
+    checkAnimateElements();
+}
+
+// Tampilkan halaman persiapan kuis
+function showQuizPrep(quizId) {
+    const quiz = quizzes.find(q => q.id === quizId);
+    if (!quiz) return;
+    
+    currentQuizId = quizId;
+    quizIntro.classList.remove('active');
+    quizResult.classList.remove('active');
+    quizArea.classList.remove('active');
+    quizPrep.classList.add('active');
+
+    document.getElementById('prep-quiz-title').textContent = quiz.title;
+    document.getElementById('prep-quiz-description').textContent = quiz.description;
+    document.getElementById('prep-question-count').textContent = quiz.questions.length + " pertanyaan";
+    // Asumsi waktu pengerjaan 5 menit untuk semua kuis
+    document.getElementById('prep-time-limit').textContent = "5 menit"; 
+    document.getElementById('prep-quiz-disclaimer').textContent = quiz.disclaimer;
+
+    window.scrollTo(0, quizPrep.offsetTop - 100);
+}
+
+// Mulai kuis setelah tombol 'Mulai' ditekan
+function beginQuiz() {
+    const quiz = quizzes.find(q => q.id === currentQuizId);
+    if (!quiz) return;
+
+    quizPrep.classList.remove('active');
+    quizArea.classList.add('active');
+
+    document.getElementById('quiz-title').textContent = quiz.title;
+    document.getElementById('quiz-description').textContent = quiz.disclaimer;
+    
+    // Timer functionality
+    let timeLeft = 60 * 5; // 5 minutes
+    const timerDisplay = document.querySelector('.quiz-timer');
+    
+    function updateTimer() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        timerDisplay.textContent = `Sisa Waktu: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        if (timeLeft > 0) {
+            timeLeft--;
+        } else {
+            clearInterval(quizTimer);
+            submitQuiz();
+            alert('Waktu habis! Kuis akan disubmit secara otomatis.');
+        }
+    }
+    
+    clearInterval(quizTimer);
+    quizTimer = setInterval(updateTimer, 1000);
+    
+    // Render questions
+    quizForm.innerHTML = '';
+    quiz.questions.forEach((q, index) => {
+        const questionDiv = document.createElement('div');
+        questionDiv.className = 'quiz-question';
+        questionDiv.innerHTML = `
+            <p>${index + 1}. ${q.questionText}</p>
+            <div class="quiz-options">
+                ${q.options.map((opt, i) => `
+                    <input type="radio" id="q${index}-opt${i}" name="q${index}" value="${opt.value}" required>
+                    <label for="q${index}-opt${i}">${opt.text}</label>
+                `).join('')}
+            </div>
+        `;
+        quizForm.appendChild(questionDiv);
+    });
+    
+    window.scrollTo(0, quizArea.offsetTop - 100);
+    checkAnimateElements();
+}
+
+function submitQuiz() {
+    const quiz = quizzes.find(q => q.id === currentQuizId);
+    if (!quiz) return;
+    
+    const answers = new FormData(quizForm);
+    let allAnswered = true;
+    for (let i = 0; i < quiz.questions.length; i++) {
+        if (!answers.has(`q${i}`)) {
+            allAnswered = false;
+            break;
+        }
+    }
+
+    if (!allAnswered) {
+        alert('Mohon jawab semua pertanyaan sebelum melanjutkan.');
+        return;
+    }
+    
+    clearInterval(quizTimer);
+    let score = 0;
+    for (let value of answers.values()) {
+        score += parseInt(value);
+    }
+    
+    const result = quiz.results.find(r => score >= r.minScore && score <= r.maxScore);
+    
+    document.getElementById('result-title').textContent = result.title;
+    document.getElementById('result-text').textContent = result.description;
+    
+    quizArea.classList.remove('active');
+    quizResult.classList.add('active');
+    
+    window.scrollTo(0, quizResult.offsetTop - 100);
+}
+
+function resetQuizState() {
+    clearInterval(quizTimer);
+    currentQuizId = null;
+    quizForm.reset();
+}
+
+if (startQuizBtn) {
+    startQuizBtn.addEventListener('click', beginQuiz);
+}
+
+if (cancelPrepBtn) {
+    cancelPrepBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        quizPrep.classList.remove('active');
+        quizIntro.classList.add('active');
+        window.scrollTo(0, quizIntro.offsetTop - 100);
+    });
+}
+
+if (submitQuizBtn) {
+    submitQuizBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        submitQuiz();
+    });
+}
+if (retakeQuizBtn) {
+    retakeQuizBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        resetQuizState();
+        showQuizPrep(currentQuizId);
+    });
+}
+if (cancelQuizBtn) {
+    cancelQuizBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        resetQuizState();
+        quizArea.classList.remove('active');
+        quizIntro.classList.add('active');
+        window.scrollTo(0, quizIntro.offsetTop - 100);
+    });
+}
+if (backToListBtn) {
+    backToListBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        resetQuizState();
+        quizResult.classList.remove('active');
+        quizIntro.classList.add('active');
+        window.scrollTo(0, quizIntro.offsetTop - 100);
+    });
+}
+
+// Initialize page on load
+document.addEventListener('DOMContentLoaded', () => {
+    // Set home as active page initially
+    navigateToPage('home');
+    
+    // Set initial classes for animations
+    checkAnimateElements();
+
+    // Fetch quizzes data
+    fetchQuizzes();
+});
+    </script>
+</body>
+</html>
